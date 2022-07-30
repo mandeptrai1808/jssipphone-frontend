@@ -18,8 +18,7 @@ export default function JssipRFC(props) {
 
   const [session, setSession] = useState(null);
 
-  const {isCall} = useSelector(state => state.PhoneReducer)
-  console.log(isCall)
+  const {isCall,configUA} = useSelector(state => state.PhoneReducer)
 
   const phone = useRef();
 
@@ -128,14 +127,13 @@ export default function JssipRFC(props) {
 
   useEffect(() => {
 
-    const socket = new JsSIP.WebSocketInterface("wss://sbc03.tel4vn.com:7444");
+    const socket = new JsSIP.WebSocketInterface(configUA.wsUrl);
     const configuration = {
       sockets: [socket],
-      uri: "105@2-test1.gcalls.vn:50061",
-      password: "test1105",
+      uri: configUA.sipUrl,
+      password: configUA.sipPass,
     };
     const sipUA = new JsSIP.UA(configuration);
-    console.log(sipUA)
     addSIPEventListener("sipUA", sipUA);
     setState({ sipUA });
     try {
@@ -146,10 +144,8 @@ export default function JssipRFC(props) {
     }
   }, []);
 
-  console.log(phone)
   return <div className="h-full rounded-md bg-blue-600">
     {!isCall ?  <Phone callFunc = {(phoneNumber) => {
-      console.log(phoneNumber)
       call(phoneNumber)
     }}/> : <Calling endFunc={() => {
       endCall();

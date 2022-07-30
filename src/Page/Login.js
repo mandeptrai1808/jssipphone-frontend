@@ -4,7 +4,11 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CopyrightIcon from '@mui/icons-material/Copyright';
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
   return (
     <div className="w-full h-full p-10">
       <div className=" flex pt-5 justify-center" style={{ fontSize: 50 }}>
@@ -13,7 +17,9 @@ export default function Login() {
       </div>
 
       <div className="w-full relative h-2/3 rounded-md shadow-md p-10">
-        <button className="duration-200 absolute top-5 right-5 hover:bg-slate-200 hover:opacity-100 opacity-50  w-10 h-10 rounded-full">
+        <button onClick={() => {
+          dispatch({type: "OPEN_MODAL"})
+        }} className="duration-200 absolute top-5 right-5 hover:bg-slate-200 hover:opacity-100 opacity-50  w-10 h-10 rounded-full">
             <SettingsIcon/>
         </button>
         <Form
@@ -21,6 +27,7 @@ export default function Login() {
           initialValues={{ remember: true }}
             onFinish={(value) => {
               console.log(value)
+              navigate('/users')
             }}
           //   onFinishFailed={onFinishFailed}
           autoComplete="off"

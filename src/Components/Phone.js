@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { RollbackOutlined, PhoneFilled } from "@ant-design/icons";
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import {useDispatch} from 'react-redux'
+import { useNavigate } from "react-router-dom";
 import { Input } from "antd";
 export default function Phone(props) {
+  const navigate = useNavigate();
 
     const dispatch = useDispatch();
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -166,16 +169,26 @@ export default function Phone(props) {
       </div>
         <div className="w-full flex justify-center mt-10">
       <button onClick={() => {
-        console.log(phoneNumber)
-        dispatch({
-            type: "UPDATE_PHONE_NUMBER",
-            content: phoneNumber
-        })
-        dispatch({type: "IS_CALLING"})
-        props.callFunc(phoneNumber)
+        if (phoneNumber.length > 0){
+          dispatch({
+              type: "UPDATE_PHONE_NUMBER",
+              content: phoneNumber
+          })
+          dispatch({type: "IS_CALLING"})
+          props.callFunc(phoneNumber)
+        }
+        else {
+          alert("Nhập số trước khi gọi!")
+        }
       }} className="w-full bg-green-500 hover:bg-green-400 h-10 rounded-md">
       <PhoneFilled style={{fontSize: 25, color: "white"}} />
       </button>
+      <button className="text-white absolute bottom-5 left-5 duration-100 hover:opacity-100 opacity-70 text-lg hover:bg-red-200 p-2 rounded-full"
+        onClick={() => {
+          navigate('/users')
+        }}>
+         <ArrowLeftIcon style={{fontSize: 30}}/> Back
+        </button>
         </div>
     </div>
   );
