@@ -1,20 +1,33 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Button} from 'antd'
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import CallEndIcon from '@mui/icons-material/CallEnd';
 import PhoneIcon from '@mui/icons-material/Phone';
 import HomeIcon from '@mui/icons-material/Home';
+import { CreateNewHistory } from '../Redux/Actions/AppAction';
 export default function EndPhone() {
+
+  let userData = localStorage.getItem("login_user");
+  userData = userData && JSON.parse(userData);
+
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const {phoneNumberRedux, callTime} = useSelector(state => state.PhoneReducer);
 
     const renderTime = () => {
       const min = Math.floor(callTime/60);
       const second = callTime - 60*Math.floor(callTime/60);
       return <span> {`${min} phút ${(second<10) ? '0':''}${second} giây`} </span>
-     
     }
+
+    useEffect(() => {
+      dispatch(CreateNewHistory({
+        phone: phoneNumberRedux,
+        timeCall: callTime,
+        userId: userData.id
+      }))
+    }, [])
   return (
     <div className='w-full h-full bg-blue-600 flex justify-center p-10'>
        <div>

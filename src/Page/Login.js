@@ -1,14 +1,27 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Button, Checkbox, Form, Input } from "antd";
+
 import PhoneIcon from "@mui/icons-material/Phone";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CopyrightIcon from '@mui/icons-material/Copyright';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { LoginUser } from "../Redux/Actions/AppAction";
 export default function Login() {
+
+  const {isLogin} = useSelector(state => state.AppReducer);
+  const [loading, setLoading] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+      if(isLogin){
+        navigate('/users')
+        setLoading(false);
+      }
+    }, [isLogin])
   return (
     <div className="w-full h-full p-10">
       <div className=" flex pt-5 justify-center" style={{ fontSize: 50 }}>
@@ -26,8 +39,8 @@ export default function Login() {
           name="basic"
           initialValues={{ remember: true }}
             onFinish={(value) => {
-              console.log(value)
-              navigate('/users')
+              dispatch(LoginUser(value))
+              setLoading(true);
             }}
           //   onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -44,7 +57,7 @@ export default function Login() {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary w-full" htmlType="submit">
+            <Button loading={loading} type="primary w-full" htmlType="submit">
               Đăng nhập
             </Button>
           </Form.Item>

@@ -14,6 +14,7 @@ import ModalTemplate from './Templates/ModalTemplate';
 import History from './Page/History';
 import SearchTemplate from './Templates/SearchTemplate';
 import BookCall from './Page/BookCall';
+import SaveAddressModal from './Templates/SaveAddressModal';
 
 export default function App() {
   
@@ -21,6 +22,7 @@ export default function App() {
   return (
     <div className="App">
       <ModalTemplate/>
+      <SaveAddressModal/>
       <BrowserRouter>
         <Routes>
           <Route path="/users" element={<MainTemplate component={<User/>}/>}/>

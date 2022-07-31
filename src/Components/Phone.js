@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { RollbackOutlined, PhoneFilled } from "@ant-design/icons";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import { Input } from "antd";
 export default function Phone(props) {
@@ -9,6 +9,8 @@ export default function Phone(props) {
 
     const dispatch = useDispatch();
   const [phoneNumber, setPhoneNumber] = useState("");
+  const {tempPhone} = useSelector(state => state.PhoneReducer);
+
 
   const pressButton = (number) => {
     setPhoneNumber(`${phoneNumber}${number}`);
@@ -17,6 +19,10 @@ export default function Phone(props) {
   const deleteBtn = () => {
     setPhoneNumber(phoneNumber.slice(0,-1))
   }
+
+  useEffect(() => {
+    setPhoneNumber(tempPhone)
+  }, [])
 
   return (
     <div className="w-full p-10 rounded-md">
