@@ -10,7 +10,7 @@ export default function SaveAddressModal() {
     
     const dispatch = useDispatch();
     const {showAddressModal,newAddressPhone, nameAddress, isUpdate, idItem} = useSelector(state => state.PhoneReducer);    
-    
+    const {loadingButton} = useSelector(state => state.AppReducer)
     const [form] = Form.useForm();
     
 
@@ -41,6 +41,7 @@ export default function SaveAddressModal() {
                 dispatch(UpateAddress(data, idItem))
               }
               else dispatch(CreateNewAddress(data))
+              dispatch({type: "IS_LOADING_BUTTON"})
             }}
           //   onFinishFailed={onFinishFailed}
           autoComplete="off"
@@ -66,7 +67,7 @@ export default function SaveAddressModal() {
           </Form.Item>
 
           <Form.Item>
-            <Button type="danger w-full" htmlType="submit">
+            <Button loading={loadingButton} type="danger w-full" htmlType="submit">
             {isUpdate ? "Lưu thay đổi" : "Lưu số điện thoại"}
             </Button>
           </Form.Item>

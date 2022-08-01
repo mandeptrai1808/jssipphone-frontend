@@ -8,6 +8,7 @@ import CopyrightIcon from '@mui/icons-material/Copyright';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LoginUser } from "../Redux/Actions/AppAction";
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 export default function Login() {
 
   const {isLogin} = useSelector(state => state.AppReducer);
@@ -29,7 +30,7 @@ export default function Login() {
         <p className="pl-0 m-0"> Phone</p>
       </div>
 
-      <div className="w-full relative h-2/3 rounded-md shadow-md p-10">
+      <div className="w-full relative rounded-md shadow-md px-10 py-5">
         <button onClick={() => {
           dispatch({type: "OPEN_MODAL"})
         }} className="duration-200 absolute top-5 right-5 hover:bg-slate-200 hover:opacity-100 opacity-50  w-10 h-10 rounded-full">
@@ -62,7 +63,13 @@ export default function Login() {
             </Button>
           </Form.Item>
         </Form>
-        <div className="absolute bottom-5 left-0 w-full text-center opacity-50"><CopyrightIcon/>nguyenvanman</div>
+        <div className="text-sm mb-5 opacity-70 hover:opacity-100">
+            <TipsAndUpdatesIcon style={{color: 'greenyellow'}}/> <span className="font-bold">Tips:</span>
+            <p>Hệ thống sẽ dựa vào username của bạn để lưu lại nhật kí cuộc gọi và danh bạ cho những lần đăng nhập tiếp theo!!</p>
+        </div>
+        <div className=" w-full text-center opacity-50"><CopyrightIcon/></div>
+        <div className=" w-full text-center opacity-50">vanman12315@gmail.com</div>
+        <div className=" w-full text-center opacity-50">https://github.com/mandeptrai1808</div>
       </div>
     </div>
   );

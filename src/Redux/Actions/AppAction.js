@@ -1,3 +1,4 @@
+import { UpdateHistories, UpdateUserLogs } from "../../Components/SocketIO";
 import { AppService } from "../../Services/AppService";
 
 export const LoginUser = (_data) => {
@@ -8,6 +9,7 @@ export const LoginUser = (_data) => {
       dispatch({
         type: "IS_LOGIN",
       });
+      dispatch(AddUserLog({content:  `${_data.username} has login to app`}));
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -23,6 +25,7 @@ export const GetHistoriesByUserId = (_userId) => {
         type: "GET_HISTORIES_CALL",
         content: data,
       });
+      dispatch({type: "IS_LOADED_PAGE"})
     } catch (error) {
       console.log(error);
     }
@@ -37,6 +40,7 @@ export const GetAddressByUserId = (_userId) => {
             type: "GET_BOOKS_ADDRESS",
             content: data
         })
+      dispatch({type: "IS_LOADED_PAGE"})
     } catch (error) {
         console.log(error)
     }
@@ -49,6 +53,7 @@ export const CreateNewAddress = (_data) => {
       const {data} = await AppService.createNewAddress(_data);
       dispatch(GetAddressByUserId(_data.userId));
       dispatch({type: "CLOSE_SAVE_ADDRESS"})
+      dispatch({type: "IS_LOADED_BUTTON"})
     } catch (error) {
       console.log(error)
     }
@@ -59,6 +64,7 @@ export const CreateNewHistory = (_data) => {
   return async (dispatch) => {
     try {
     const {data} = await AppService.createNewHistory(_data);
+    UpdateHistories();
       console.log(data)
     } catch (error) {
       console.log(error)
@@ -70,10 +76,46 @@ export const UpateAddress = (_data, _id) => {
   return async (dispatch) => {
    try {
     const {data} = await AppService.updateAddress(_data, _id);
-    dispatch(GetAddressByUserId(_data.userId))
+    await dispatch(GetAddressByUserId(_data.userId))
     dispatch({type: "CLOSE_SAVE_ADDRESS"})
+    dispatch({type: "IS_LOADED_BUTTON"})
+
    } catch (error) {
     console.log(error)
    }
+  }
+}
+
+export const GetAllHistories = () => {
+  return async (dispatch) => {
+    try {
+      const {data} = await AppService.getAllCallHistories();
+      dispatch({type:"GET_ALL_HISTORIES", content:data})
+      dispatch({type: "IS_LOADED_PAGE"})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const GetUserLogs = () => {
+  return async (dispatch) => {
+    try {
+      const {data} = await AppService.getUserLogs();
+      dispatch({type:"GET_USER_LOGS", content:data})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const AddUserLog = (_data) => {
+  return async (dispatch) => {
+    try {
+      const {data} = await AppService.addUserLog(_data);
+      UpdateUserLogs();
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

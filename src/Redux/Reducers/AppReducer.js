@@ -3,7 +3,11 @@ const stateDefault = {
     historiesCall: [],
     isLogin: false,
     bookAddress: [],
-    searchData: ''
+    searchData: '',
+    allHistories: [],
+    userLogs: [],
+    loadingPage: false,
+    loadingButton: false
 }
 
 export const AppReducer = (state = stateDefault, action) => {
@@ -39,6 +43,41 @@ export const AppReducer = (state = stateDefault, action) => {
         state.searchData = action.content;
         return {...state}
     }
+
+    case "GET_ALL_HISTORIES":{
+        state.allHistories = action.content.sort((a,b) => {
+            return b.infoCall?.id - a.infoCall?.id
+          });
+        return {...state}
+    }
+
+    case "GET_USER_LOGS":{
+        state.userLogs = action.content.sort((a,b) => {
+            return b.id - a.id
+          });
+        return {...state}
+    }
+
+    case "IS_LOADING_PAGE":{
+        state.loadingPage = true;
+        return {...state}
+    }
+
+    case "IS_LOADED_PAGE":{
+        state.loadingPage = false;
+        return {...state}
+    }
+
+    case "IS_LOADING_BUTTON":{
+        state.loadingButton = true;
+        return {...state}
+    }
+
+    case "IS_LOADED_BUTTON":{
+        state.loadingButton = false;
+        return {...state}
+    }
+
     default:
         return {...state}
   }

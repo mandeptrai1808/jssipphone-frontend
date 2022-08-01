@@ -4,6 +4,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import { AddUserLog } from "../Redux/Actions/AppAction";
 export default function User() {
   const configData = useSelector((state) => state.PhoneReducer).configUA;
   
@@ -21,6 +22,7 @@ export default function User() {
         <button className="text-white absolute top-5 left-5 duration-100 hover:opacity-100 opacity-50 hover:bg-red-200 p-2 rounded-full"
         onClick={() => {
           dispatch({type: "IS_NOT_LOGIN"})
+      dispatch(AddUserLog({content:  `${userData.username} has logout from app`}));
           navigate('/')
         }}>
           Logout <LogoutIcon />

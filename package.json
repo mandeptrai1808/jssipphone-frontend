@@ -24,6 +24,7 @@
     "react-sip": "^0.8.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
+    "socket.io-client": "^4.5.1",
     "thunk": "^0.0.1",
     "web-vitals": "^2.1.4"
   },

@@ -46,5 +46,27 @@ export const AppService = {
         method: "PUT",
         data: _data
       })
+    },
+
+    getAllCallHistories: () => {
+      return axios({
+        url: `${BASE_URL}/histories/getall`,
+        method: 'GET'
+      })
+    },
+
+    getUserLogs: () => {
+      return axios({
+        url: `${BASE_URL}/users/getlogs`,
+        method: 'GET'
+      })
+    },
+
+    addUserLog: (_data) => {
+      return axios({
+        url: `${BASE_URL}/users/addlog`,
+        method: "POST",
+        data: _data
+      })
     }
 }

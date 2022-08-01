@@ -5,12 +5,13 @@ import { GetAddressByUserId } from '../Redux/Actions/AppAction';
 import EditIcon from '@mui/icons-material/Edit';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import { useNavigate } from 'react-router-dom';
+import { Skeleton } from 'antd';
 export default function BookCall() {
 
   let userData = localStorage.getItem("login_user");
   userData = userData && JSON.parse(userData);
 
-  const {bookAddress, searchData} = useSelector(state => state.AppReducer);
+  const {bookAddress, searchData, loadingPage} = useSelector(state => state.AppReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -56,12 +57,13 @@ export default function BookCall() {
     })
 
     useEffect(() => {
+    dispatch({type: "IS_LOADING_PAGE"})
       if (userData.id)
       dispatch(GetAddressByUserId(userData.id))
     }, [])
 
   return (
-    <div className='pt-12 pb-20 overflow-y-auto h-full w-full relative'>
+  <div className='w-full h-full'>
        <div onClick={() => {
                    dispatch({
                     type: "OPEN_SAVE_ADDRESS",
@@ -69,10 +71,23 @@ export default function BookCall() {
                     name: '',
                     update: false
                   })
-                }} className='h-14 w-14 flex text-white justify-center items-center bg-blue-400 rounded-full absolute bottom-40 shadow-md hover:scale-110 duration-100 right-5'>
+                }} className='h-14 w-14 flex z-20 text-white justify-center items-center bg-blue-400 rounded-full absolute bottom-40 shadow-md hover:scale-110 duration-100 right-5'>
                       <PersonAddAlt1Icon/>
                 </div>
-        {testRender}
+      <div className='pt-12 pb-96 overflow-y-auto h-full w-full relative'>
+        { (loadingPage) ?  
+        <div className='p-5'>
+          <Skeleton active avatar/>
+          <Skeleton active avatar/>
+          <Skeleton active avatar/>
+          <Skeleton active avatar/>
+
+        </div>
+        : (bookAddress.length > 0) ?  testRender : 
+        <div className="text-center text-xl font-bold pt-20">
+          <p>Bạn chưa có lịch sử cuộc gọi</p>
+          </div>}
     </div>
+  </div>
   )
 }

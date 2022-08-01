@@ -15,12 +15,15 @@ import History from './Page/History';
 import SearchTemplate from './Templates/SearchTemplate';
 import BookCall from './Page/BookCall';
 import SaveAddressModal from './Templates/SaveAddressModal';
+import Admin from './Page/Admin';
+import SocketIO from './Components/SocketIO';
 
 export default function App() {
   
 
   return (
     <div className="App">
+      <SocketIO/>
       <ModalTemplate/>
       <SaveAddressModal/>
       <BrowserRouter>
@@ -32,6 +35,7 @@ export default function App() {
           <Route path="/endphone" element={<PhoneTemplate component={<EndPhone/>}/>}/>
           <Route path="/errorphone" element={<PhoneTemplate component={<ErrorPhone/>}/>}/>
           <Route path="/" element={<PhoneTemplate component={<Login/>}/>}/>
+          <Route path="/admin" element={<Admin/>} />
         </Routes>
       </BrowserRouter>
     </div>

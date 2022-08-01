@@ -8,7 +8,7 @@ import {
 import SaveIcon from "@mui/icons-material/Save";
 import dateFormat from "dateformat";
 import { useNavigate } from "react-router-dom";
-import { Button } from "antd";
+import { Button, Skeleton  } from "antd";
 import Item from "antd/lib/list/Item";
 export default function History() {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export default function History() {
     navigate("/phone");
   };
 
-  const { historiesCall, bookAddress, searchData } = useSelector(
+  const { historiesCall, bookAddress, searchData, loadingPage } = useSelector(
     (state) => state.AppReducer
   );
 
@@ -123,13 +123,25 @@ export default function History() {
   });
 
   useEffect(() => {
+    dispatch({type: "IS_LOADING_PAGE"})
     if (userData.id) dispatch(GetAddressByUserId(userData.id));
     dispatch(GetHistoriesByUserId(userData.id));
   }, []);
 
   return (
-    <div className="pt-12 pb-20 overflow-y-auto h-full w-full">
-      {testRender}
+    <div className="pt-12 pb-96 overflow-y-auto h-full w-full">
+      { (loadingPage) ?
+        <div className="p-5">
+          <Skeleton active avatar/>
+          <Skeleton active avatar/>
+          <Skeleton active avatar/>
+          <Skeleton active avatar/>
+        </div>
+      : (historiesCall.length > 0) ?  testRender : 
+        <div className="text-center text-xl font-bold pt-20">
+          <p>Bạn chưa có lịch sử cuộc gọi</p>
+          </div>
+      }
     </div>
   );
 }
