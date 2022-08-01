@@ -49,7 +49,7 @@ export default function Admin() {
   });
 
   const userLogsRender = userLogs.map((item, index) => {
-    return  <div key={index} className="w-full h-16 px-5 flex items-center border-t border-b hover:bg-slate-100">
+    return  <div key={index} className="w-full h-20 px-5 flex items-center border-t border-b hover:bg-slate-100">
     <div className="mr-5 text-blue-500">
       <AccountCircleIcon style={{ fontSize: 40 }} />
     </div>
@@ -104,7 +104,7 @@ export default function Admin() {
       <div className="w-full grid grid-cols-3 md:px-10 px-2 md:py-5 py-20 gap-5">
         <div className="md:col-span-1 col-span-3 p-5 shadow-md h-100">
           <h1 className="text-2xl font-bold py-2 w-full text-center bg-blue-300">
-          Total call time
+          Total Call Time
           </h1>
           <div className="md:text-8xl text-7xl py-5 rounded-sm hover:bg-red-300 hover:text-white duration-500">
             <span className="mr-5">{time.hour}</span>

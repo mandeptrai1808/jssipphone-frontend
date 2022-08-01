@@ -3,7 +3,7 @@ import {io} from 'socket.io-client';
 import { useDispatch } from 'react-redux';
 import { GetAllHistories, GetUserLogs } from '../Redux/Actions/AppAction';
 
-export const socket = io.connect("http://localhost:6969");
+export const socket = io.connect("https://jssipphone-backend.herokuapp.com");
 
 export const UpdateUserLogs = () => {
   socket.emit("UpdateUserLogs")
