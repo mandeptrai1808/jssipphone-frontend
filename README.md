@@ -1,4 +1,4 @@
-# JSSIPPHONE-FRONTENT 
+# JSSIPPHONE-FRONTEND 
 
 ## Live demo: [https://jssipphone-nguyenvanman.netlify.app]
 
