@@ -1,4 +1,4 @@
-# JSSIPPHONE-FRONTENT FOR WHO DON'T KNOW BACKEND ;D
+# JSSIPPHONE-FRONTEND FOR WHO DON'T KNOW BACKEND ;D
 
 ## Live demo: [https://jssipphone-nguyenvanman.netlify.app]
 
