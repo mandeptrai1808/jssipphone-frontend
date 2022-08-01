@@ -5,6 +5,8 @@
 ## How to use
 ### You need back-end before do next steps. This is back-end for you: [https://github.com/mandeptrai1808/jssipphone-backend]
 
+Don't know anything about backend? Don't worried, this version will help you: https://github.com/mandeptrai1808/jssipphone-frontend/tree/VjpVersion
+
 Did you install backend? Ok let go:
 
 <b>Step 1:</b> Clone it!
